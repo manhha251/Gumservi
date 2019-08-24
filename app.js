@@ -21,7 +21,7 @@ var editRouter = require('./routes/edit')
 
 var app = express()
 
-var uri = 'mongodb+srv://gumservi:gumservi@cluster0-45pmy.mongodb.net/test?retryWrites=true&w=majority'
+var uri = process.env.MONGOLAB_URI
 
 mongoose.connect(uri)
 var db = mongoose.connection
