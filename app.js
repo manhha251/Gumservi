@@ -21,12 +21,28 @@ var editRouter = require('./routes/edit')
 
 var app = express()
 
-mongoose.connect('mongodb://localhost:27017/Gumservi')
+var uri = 'mongodb+srv://gumservi:gumservi@cluster0-45pmy.mongodb.net/test?retryWrites=true&w=majority'
+
+mongoose.connect(uri)
 var db = mongoose.connection
 
 db.on('error', console.error.bind(console, 'connection error:'))
-db.once('open', function () {
-  console.log('database connect successfully')
+db.once('open', async function (next) {
+  var admin = {
+    fullname: 'admin',
+    username: 'admin',
+    password: 'admin',
+    email: 'admin@example.com'
+  }
+
+  await User.findOne({ username: 'admin' }, async function (err, user) {
+    if (err) {
+      next(err)
+    } else if (!user) {
+      await User.create(admin)
+    }
+    console.log('Database connect successfully')
+  })
 })
 
 // app.use(fileUpload())
