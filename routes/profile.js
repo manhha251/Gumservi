@@ -48,9 +48,7 @@ router.get('/', function (req, res, next) {
         }
       })
   } else {
-    var error = new Error('Your login section has expired. Please login again')
-    error.status = 401
-    next(error)
+    res.render('login', { title: 'Log In', stylesheet: 'LogIn.css', status: 'error', message: 'Your login section has expired' })
   }
 })
 
@@ -115,9 +113,7 @@ router.get('/album', async function (req, res, next) {
       }
     })
   } else {
-    var error = new Error('Your login section has expired. Please login again')
-    error.status = 401
-    next(error)
+    res.render('login', { title: 'Log In', stylesheet: 'LogIn.css', status: 'error', message: 'Your login section has expired' })
   }
 })
 
@@ -142,9 +138,7 @@ router.get('/image/:id', async function (req, res, next) {
       }
     })
   } else {
-    var error = new Error('Your login section has expired. Please login again')
-    error.status = 401
-    next(error)
+    res.render('login', { title: 'Log In', stylesheet: 'LogIn.css', status: 'error', message: 'Your login section has expired' })
   }
 })
 
@@ -200,9 +194,7 @@ router.get('/album/:id', async function (req, res, next) {
       }
     })
   } else {
-    var error = new Error('Your login section has expired. Please login again')
-    error.status = 401
-    next(error)
+    res.render('login', { title: 'Log In', stylesheet: 'LogIn.css', status: 'error', message: 'Your login section has expired' })
   }
 })
 
@@ -223,9 +215,7 @@ router.get('/update/image/:id', async function (req, res, next) {
       }
     })
   } else {
-    var error = new Error('Your login section has expired. Please login again')
-    error.status = 401
-    next(error)
+    res.render('login', { title: 'Log In', stylesheet: 'LogIn.css', status: 'error', message: 'Your login section has expired' })
   }
 })
 
@@ -246,9 +236,7 @@ router.get('/update/album/:id', async function (req, res, next) {
       }
     })
   } else {
-    var error = new Error('Your login section has expired. Please login again')
-    error.status = 401
-    next(error)
+    res.render('login', { title: 'Log In', stylesheet: 'LogIn.css', status: 'error', message: 'Your login section has expired' })
   }
 })
 
@@ -315,9 +303,7 @@ router.post('/update/album/:id', async function (req, res, next) {
       }
     })
   } else {
-    var error = new Error('Your login section has expired. Please login again')
-    error.status = 401
-    next(error)
+    res.render('login', { title: 'Log In', stylesheet: 'LogIn.css', status: 'error', message: 'Your login section has expired' })
   }
 })
 
@@ -331,9 +317,7 @@ router.get('/delete/image/:id', async function (req, res, next) {
       }
     })
   } else {
-    var error = new Error('Your login section has expired. Please login again')
-    error.status = 401
-    next(error)
+    res.render('login', { title: 'Log In', stylesheet: 'LogIn.css', status: 'error', message: 'Your login section has expired' })
   }
 })
 
@@ -356,9 +340,7 @@ router.get('/delete/album/:id', async function (req, res, next) {
       }
     })
   } else {
-    var error = new Error('Your login section has expired. Please login again')
-    error.status = 401
-    next(error)
+    res.render('login', { title: 'Log In', stylesheet: 'LogIn.css', status: 'error', message: 'Your login section has expired' })
   }
 })
 
