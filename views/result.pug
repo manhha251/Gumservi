@@ -1,0 +1,136 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+    title Search result
+    link(rel='stylesheet' href='/stylesheets/style.css')
+    link(rel='stylesheet' href='/stylesheets/message.css')
+    link(href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet')
+    //link(href='https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/wtf-forms.css' rel='stylesheet')
+    //script(defer src='/javascripts/script.js')
+  body
+    #wrapper
+      #header
+        #nav-bar
+          a.nav-link(href='#')
+            span
+              img(src='images/Camera-icons-(106).png' width='45' height='45')
+          b Gumservi
+          .nav
+            ul
+              li.nav-item
+                a.nav-link(href='/aboutus') ABOUT US
+              if (username)
+                li.nav-item
+                  a.nav-link(href='/logout') LOG OUT
+                li.nav-item(style='display: inline-block')
+                  label(style='font-size:20px') Welcome, 
+                  a.nav-link(href='/profile' style='font-size:20px') #{username}
+              else
+                li.nav-item
+                  a.nav-link(href='/register') REGISTER
+                li.nav-item
+                  a.nav-link(href='/login') LOG IN
+                li.nav-item
+                  a.nav-link(href='/') HOME
+              li.nav-search
+                #search-photo
+                  form#search-form(method='GET', action='/search' style='display: block')
+                    select#filter(data-trigger='' name='filter')
+                      option(placeholder='' value='title') Title (Name)
+                      option(value='keyword') Keyword
+                      option(value='caption') Caption (Description)
+                    select#type(data-trigger='' name='type')
+                      option(placeholder='' value='image') Image
+                      option(value='album') Album
+                    input(type='search' name='search' placeholder='Search photos... (･｀ｪ´･)つ')
+                    button.icon-search(type='submit')
+                      i.fa.fa-search
+        p#banner
+          img(src='/images/banner.jpg')
+
+      if type == 'image'
+        if list != null
+          label(style='text-align: center; font-size: 20pt') There are #{list.length} images match your search
+          #content
+            each photo in list
+              .box(style='text-align: center')
+                a(href='/detail/image/' + photo.id)
+                  img(src='data:' + photo.contentType +';base64, ' + photo.data)
+                label #{photo.title}
+        else
+          label We can't find anything 
+      else
+        if list != null
+          label(style='text-align: center; font-size: 20pt') There are #{list.length} albums match your search
+          #content
+            each album in list
+              .box(style='text-align: center')
+                a(href='/detail/album/' + album.id)
+                  if (album.thumbnail)
+                   img(src='data:' + album.thumbnail.contentType +';base64, ' + album.thumbnail.data)
+                  else
+                    img(src='/images/Unavailable.svg')
+                label #{album.name}
+        else
+          label We can't find anything 
+        
+      #footer(style='text-align: center')
+        #lilfooter1
+          h3 LICENSE
+          p
+            | Nous somme heureux de faire ce site. Le site Web est cr&eacute;&eacute; avec une passion pour la photographie et
+            | nous voulons le partager avec des personnes partageant les m&ecirc;mes int&eacute;r&ecirc;ts.
+          p Copyright &copy;2019 This web is made by 2019.Web-17VP | All rights reserved.
+        #lilfooter2
+          h3 FEEDBACK
+          p Leave your comment for us
+          .box
+            form.container-4(method='POST' action='/feedback')
+              input#text(type='text' placeholder='◉ω◉ Feed back overhere...')
+              button.icon(onclick="alert('Submit successfully!')")
+                i.fa.fa-arrow-right
+        #lilfooter3
+          h3 FOLLOW US
+          p Let us be social
+          img(src='/images/facebook-logo.png')
+          img(src='/images/twitter(1).png')
+          img(src='/images/instagram-logo.png')
+          img(src='/images/youtube(1).png')
+    
+    script.
+      var modal = document.getElementById("myModal");
+      // Get the button that opens the modal
+      var btn = document.getElementById("addImage");
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("btn_cancel")[0];
+      // When the user clicks on the button, open the modal 
+      btn.onclick = function() {
+        modal.style.display = "block";
+      }
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+        modal.style.display = "none";
+        }
+      }
+      const uploadButton = document.querySelector('.browse-btn');
+      const fileInfo = document.querySelector('.file-info');
+      const realInput = document.getElementById('image');
+      uploadButton.addEventListener('click', () => {
+        realInput.click();
+      });
+      realInput.addEventListener('change', () => {
+        const name = realInput.value.split(/\\|\//).pop();
+        const truncated = name.length > 20 
+          ? name.substr(name.length - 20) 
+          : name;
+        
+        fileInfo.innerHTML = truncated;
+      });

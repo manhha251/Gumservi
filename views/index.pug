@@ -1,0 +1,50 @@
+doctype html
+
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    title #{title}
+    link(rel='stylesheet' href='/stylesheets/' + stylesheet)
+    link(rel='stylesheet' href='/stylesheets/message.css')
+    link(rel='stylesheet' href='/stylesheets/style.css')
+    link(href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet')
+
+  body
+    #header
+      #nav-bar
+        a.nav-link(href='#')
+          span
+            img(src='/images/Camera-icons-(106).png' width='45' height='45')
+        b Gumservi
+        .nav
+            ul
+              li.nav-item
+                a.nav-link(href='/aboutus') ABOUT US
+              li.nav-item
+                a.nav-link(href='/register') REGISTER
+              li.nav-item
+                a.nav-link(href='/login') LOG IN
+              li.nav-item
+                a.nav-link(href='/') HOME
+              li.nav-search
+                #search-photo
+                  form#search-form(method='GET', action='/search' style='display: block')
+                    select#filter(data-trigger='' name='filter')
+                      option(placeholder='' value='title') Title (Name)
+                      option(value='keyword') Keyword
+                      option(value='caption') Caption (Description)
+                    select#type(data-trigger='' name='type')
+                      option(placeholder='' value='image') Image
+                      option(value='album') Album
+                    input#input-image(type='search' name='search' placeholder='Search photos... (･｀ｪ´･)つ')
+                    button.icon-search(type='submit')
+                      i.fa.fa-search
+        #box
+          h1(style='font-size: 40px') Welcome to Gumservi.vn
+          br
+          h2 Create Your Own Beautiful Gallery
+          br
+          p Your own gallery is just a few clicks away. It&apos;s easy and free with Gumservi
+          button(type='submit')
+            a(href='/login') Join Us

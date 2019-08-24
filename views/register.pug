@@ -1,0 +1,45 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    title #{title}
+    link(rel='stylesheet' href='/stylesheets/' + stylesheet)
+    link(rel='stylesheet' href='/stylesheets/message.css')
+
+  body
+    #wrapper
+      #nav-bar
+        a.nav-link(href='/')
+          span
+            img(src='/images/Camera-icons-(106).png' width='45' height='45')
+        b Gumservi
+    #id01.modal
+      form.modal-content.animate(action='/register' method='POST')
+        .imgcontainer
+          img.avatar(src='images/login.jpg' alt='Avatar')
+        .container
+          if status == 'error'
+            .validation
+              each err in message
+                p - #{err}
+        .container
+          label
+            b(style='color: #ffff; font-size: 18px') Full Name
+          input(type='text' placeholder='Full Name' name='fullname' required='')
+          label
+            b(style='color: #ffff; font-size: 18px') Email
+          input(type='text' placeholder='abcd@example.com' name='email' required='')
+          label
+            b(style='color: #ffff; font-size: 18px') Username
+          input(type='text' placeholder='Username' name='username' required='')
+          label
+            b(style='color: #ffff; font-size: 18px') Password
+          input(type='password' placeholder='Password' name='password' required='')
+          label
+            b(style='color: #ffff; font-size: 18px') Confirm Password
+          input(type='password' placeholder='Confirm Password' name='passwordConfirm' required='')
+          button(type='submit' style='background-color: #9aff9a; color: #000; margin-top: 15px;') Sign Up
+          span.login(style='color: #ffff')
+            | Already registered? 
+            a(href='/login' style='color: #ffff; font-style: italic; font-weight: bold') Log In
+        .container

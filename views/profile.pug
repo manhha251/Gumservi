@@ -1,0 +1,206 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+    title #{username}
+    link(rel='stylesheet' href='/stylesheets/style.css')
+    link(rel='stylesheet' href='/stylesheets/message.css')
+    link(href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet')
+    //link(href='https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/wtf-forms.css' rel='stylesheet')
+    //script(defer src='/javascripts/script.js')
+  body
+    #wrapper
+      #header
+        #nav-bar
+          a.nav-link(href='#')
+            span
+              img(src='/images/Camera-icons-(106).png' width='45' height='45')
+          b Gumservi
+          .nav
+            ul
+              li.nav-item
+                a.nav-link(href='/aboutus') ABOUT US
+              li.nav-item
+                a.nav-link(href='/logout') LOG OUT
+              li.nav-item(style='display: inline-block')
+                label(style='font-size:20px') Welcome, 
+                a.nav-link(herf='#' style='font-size:20px') #{username}
+              li.nav-search
+                #search-photo
+                  form#search-form(method='GET', action='/search' style='display: block')
+                    select#filter(data-trigger='' name='filter')
+                      option(placeholder='' value='title') Title (Name)
+                      option(value='keyword') Keyword
+                      option(value='caption') Caption (Description)
+                    select#type(data-trigger='' name='type')
+                      option(placeholder='' value='image') Image
+                      option(value='album') Album
+                    input#input-image(type='search' name='search' placeholder='Search photos... (･｀ｪ´･)つ')
+                    button.icon-search(type='submit')
+                      i.fa.fa-search
+        p#banner
+          img(src='/images/banner.jpg')
+        #menu
+          ul(style='content-align: center')
+            li#menu1
+              a(href='/profile/image') Show image
+            li#menu2
+              a(href='/profile/album') Show album
+
+      // Image upload modal
+      #imageModal.modal(style='position: fixed')
+        form.modal-content(action='/upload?type=image' method='POST' enctype="multipart/form-data")
+          .container
+            .imgcontainer
+              h1(style='text-align: center; color: white;') Upload image
+            label(for='image')
+              b Photo
+            .input-container
+              input#image(type='file' required='' name="image" multiple accept='image/*')
+              button#browse-image-btn.browse-btn(type='button')
+                i.fa.fa-cloud-upload(style='padding-right: 5px')
+                | Browse Photos
+              span.file-info#image-info
+                | Upload a photos
+            //.container(style='display: flex; flex-direction: column;')
+            button#btn-image-upload.btn-upload(type='submit' style='background-color: ##9aff9a;') Upload
+            button#btn-close-image-form.btn-close(type='button' style='background-color: red') Close
+      
+      // Album create modal
+      #albumModal.modal(style='position: fixed')
+        form.modal-content(action='/upload?type=album' method='POST' enctype="multipart/form-data")
+          .container
+            .imgcontainer
+              h1(style='text-align: center; color: white;') Create album
+            label(for='image')
+              b Photos for album
+            .input-container
+              input#album(type='file' name="image" multiple accept='image/*')
+              button#browse-album-btn.browse-btn(type='button')
+                i.fa.fa-cloud-upload(style='padding-right: 5px')
+                | Browse Photos
+              span.file-info#album-info
+                | Upload photos to albums
+            .container
+              label
+                b(style='color: #ffff; font-size: 20px') Album Name
+              input(type='text' placeholder='Album name ...' name='name' )
+              label
+                b(style='color: #ffff; font-size: 20px') Short description
+              input(type='text' placeholder='Caption ...' name='description')
+              label
+                b(style='color: #ffff; font-size: 20px') Keyword
+              input(type='text' placeholder='Key word ...' name='keyword')
+              label
+              b(style='color: #fff; font-size: 20px') Public
+              form.Visibility(style='color: white')
+                input(name='visibility' type='radio' value='public' checked)
+                b(style='color: #fff; font-size: 18px') Public
+                input(name='visibility' type='radio' value='private')
+                b(style='color: #fff; font-size: 18px') Private
+            button#btn-album-upload.btn-upload(type='submit' style='background-color: ##9aff9a;') Create
+            button#btn-close-album-form.btn-close(type='button' style='background-color: red') Close
+
+      if (type == 'image')
+        label(style='text-align: left; font-size: 20px; padding-left: 100px; max-width: 1000px') Your gallery has #{list.length} images
+        #content
+          .box(style='text-align: center')
+            a#addImage(href='#' style='text-decoration: none;')
+              img(src='/images/addIcon.png')
+              label(style='text-color: #000') Upload more images
+          if list != null
+            each photo in list
+              .box(style='text-align: center')
+                a(href='/profile/image/' + photo.id)
+                  img(src='data:' + photo.contentType +';base64, ' + photo.data)
+                label #{photo.title}
+      else
+        label(style='text-align: left; font-size: 20px; padding-left: 100px; max-width: 1000px') Your gallery has #{list.length} albums
+        #content
+          .box(style='text-align: center')
+            a#addAlbum(href='#' style='text-decoration: none;')
+              img(src='/images/addAlbumIcon.png')
+              label(style='text-color: #000') Create more albums
+          if list != null
+            each album in list
+              .box(style='text-align: center')
+                a(href='/profile/album/' + album.id)
+                  if (album.thumbnail)
+                   img(src='data:' + album.thumbnail.contentType +';base64, ' + album.thumbnail.data)
+                  else
+                    img(src='/images/Unavailable.svg')
+                label #{album.name}
+
+      #footer(style='text-align: center')
+        #lilfooter1
+          h3 LICENSE
+          p
+            | Nous somme heureux de faire ce site. Le site Web est cr&eacute;&eacute; avec une passion pour la photographie et
+            | nous voulons le partager avec des personnes partageant les m&ecirc;mes int&eacute;r&ecirc;ts.
+          p Copyright &copy;2019 This web is made by 2019.Web-17VP | All rights reserved.
+        #lilfooter2
+          h3 FEEDBACK
+          p Leave your comment for us
+          .box
+            iframe#dummyframe(width='0' height='0' border='0' name='dummyframe')
+            form.container-4(method='POST' action='/feedback' target="dummyframe")
+              input#text(name='feedback' type='text' placeholder='◉ω◉ Feed back overhere...')
+              button.icon(onclick="alert('Submit successfully!')")
+                i.fa.fa-arrow-right
+        #lilfooter3
+          h3 FOLLOW US
+          p Let us be social
+          img(src='/images/facebook-logo.png')
+          img(src='/images/twitter(1).png')
+          img(src='/images/instagram-logo.png')
+          img(src='/images/youtube(1).png')
+    
+    script.
+      //Popup form
+      function activateModal(modal, btn, close, browse, info, files, upload) {
+        var modal = document.getElementById(modal);
+        // Get the button that opens the modal
+        var btn = document.getElementById(btn);
+        // Get the <span> element that closes the modal
+        var span = document.getElementById(close);
+        // When the user clicks on the button, open the modal 
+        btn.onclick = function() {
+          modal.style.display = "block";
+        }
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+          modal.style.display = "none";
+          }
+        }
+
+        const uploadButton = document.getElementById(browse);
+        const fileInfo = document.getElementById(info);
+        const realInput = document.getElementById(files);
+        uploadButton.addEventListener('click', () => {
+            realInput.click();
+        });
+        realInput.addEventListener('change', () => {
+          fileInfo.innerHTML = 'Upload ' + realInput.files.length + ' photos';
+        });
+
+        document.getElementById(upload).addEventListener('click', function(event) {
+          if (realInput.value === null || realInput.value === '')
+            {
+              alert('Please choose a file to upload')
+              event.preventDefault()
+            }
+        })
+      }
+      if (document.getElementById("addImage"))
+        activateModal("imageModal", "addImage", "btn-close-image-form", "browse-image-btn", "image-info", 'image', "btn-image-upload")
+      else
+        activateModal("albumModal", "addAlbum", "btn-close-album-form", "browse-album-btn", "album-info", 'album', "btn-album-upload")
+
+      //Custom input file

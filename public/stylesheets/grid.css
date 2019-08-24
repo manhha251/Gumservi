@@ -1,0 +1,36 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: .5fr 1fr 2.5fr .5fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: ". thumbnail edit-form .";
+  grid-gap: 3em;
+}
+
+.thumbnail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  grid-area: thumbnail;
+  padding: 2px;
+}
+
+.thumbnail form {
+  color: white;
+  width: 100%;
+  align-items: center;
+}
+
+.thumbnail button {
+  background: red;
+  width: 100%;
+  padding: 8px;
+  border-radius: 100px;
+  color: white;
+  cursor: pointer;
+}
+
+.edit-form { 
+  grid-area: edit-form;
+  padding: 2px;
+}

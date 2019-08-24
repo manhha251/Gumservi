@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1= message
+  p You will be redirected to homepage in 5 secs
+  script.
+    setTimeout(function(){
+      window.location.href = '/';
+    }, 1S000);

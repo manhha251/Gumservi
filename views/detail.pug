@@ -1,0 +1,120 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+    title Detail
+    //link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")
+    link(rel='stylesheet' href='/stylesheets/style.css')
+    link(rel='stylesheet' href='/stylesheets/message.css')
+    link(rel='stylesheet' href='/stylesheets/grid.css')
+    link(href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet')
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js")
+  body
+    #wrapper
+      #header
+        #nav-bar
+          a.nav-link(href='#')
+            span
+              img(src='/images/Camera-icons-(106).png' width='45' height='45')
+          b Gumservi
+          .nav
+            ul
+              li.nav-item
+                a.nav-link(href='/aboutus') ABOUT US
+              if (username)
+                li.nav-item
+                  a.nav-link(href='/logout') LOG OUT
+                li.nav-item(style='display: inline-block')
+                  label(style='font-size:20px') Welcome, 
+                  a.nav-link(href='/profile' style='font-size:20px') #{username}
+              else
+                li.nav-item
+                  a.nav-link(href='/register') REGISTER
+                li.nav-item
+                  a.nav-link(href='/login') LOG IN
+                li.nav-item
+                  a.nav-link(href='/') HOME
+              li.nav-search
+                #search-photo
+                  form#search-form(method='GET', action='/search' style='display: block')
+                    select#filter(data-trigger='' name='filter')
+                      option(placeholder='' value='title') Title (Name)
+                      option(value='keyword') Keyword
+                      option(value='caption') Caption (Description)
+                    select#type(data-trigger='' name='type')
+                      option(placeholder='' value='image') Image
+                      option(value='album') Album
+                    input(type='search' name='search' placeholder='Search photos... (･｀ｪ´･)つ')
+                    button.icon-search(type='submit')
+                      i.fa.fa-search
+        p#banner
+          img(src='/images/banner.jpg')
+      if type == 'image'
+        .grid-container
+          .thumbnail
+            img(src='data:' + detail.contentType +';base64, ' + detail.data style='display: inline-block')
+          form#edit-form.edit-form
+            .container
+              h3(style='text-align: center; font-size: 30pt; color: #000') Image detail
+            .container
+              label(style='font-size: 20px') Title: #{detail.title}
+            .container
+              label(style='font-size: 20px')  Caption: #{detail.caption}
+            .container
+              label(style='font-size: 20px')  Keyword: #{detail.keyword}
+            .container
+              label(style='font-size: 20px')  Owner: #{detail.owner}
+            .container
+              button.btn-goback(type='button' onclick="goBack()") Go Back
+      else
+        .grid-container
+          .thumbnail
+            img(src='data:' + thumbnail.contentType +';base64, ' + thumbnail.data style='display: inline-block')
+          form#edit-form.edit-form
+            .container
+              h3(style='text-align: center; font-size: 30pt; color: #000') Image detail
+            .container
+              label(style='font-size: 20px') Name: #{name}
+            .container
+              label(style='font-size: 20px')  Caption: #{caption}
+            .container
+              label(style='font-size: 20px')  Keyword: #{keyword}
+            .container
+              label(style='font-size: 20px')  Owner: #{owner}
+            .container
+              button.btn-goback(type='button' onclick="goBack()") Go Back
+        label(style='text-align: left; font-size: 20px; padding-left: 100px; max-width: 1000px') This album #{name} has #{list.length} photos
+        #content
+          if list != null
+            each photo in list
+              .box(style='text-align: center')
+                img(src='data:' + photo.contentType +';base64, ' + photo.data)
+
+      #footer(style='text-align: center')
+        #lilfooter1
+          h3 LICENSE
+          p
+            | Nous somme heureux de faire ce site. Le site Web est cr&eacute;&eacute; avec une passion pour la photographie et
+            | nous voulons le partager avec des personnes partageant les m&ecirc;mes int&eacute;r&ecirc;ts.
+          p Copyright &copy;2019 This web is made by 2019.Web-17VP | All rights reserved.
+        #lilfooter2
+          h3 FEEDBACK
+          p Leave your comment for us
+          .box
+            form.container-4(method='POST' action='/feedback')
+              input#text(type='text' placeholder='◉ω◉ Feed back overhere...')
+              button.icon(onclick="alert('Submit successfully!')")
+                i.fa.fa-arrow-right
+        #lilfooter3
+          h3 FOLLOW US
+          p Let us be social
+          img(src='/images/facebook-logo.png')
+          img(src='/images/twitter(1).png')
+          img(src='/images/instagram-logo.png')
+          img(src='/images/youtube(1).png')
+    script.
+      function goBack() {
+        window.history.back();
+      }

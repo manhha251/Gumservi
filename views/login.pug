@@ -1,0 +1,39 @@
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        title #{title}
+        link(rel='stylesheet' href='stylesheets/' + stylesheet)
+        link(rel='stylesheet' href='stylesheets/message.css')
+        //link(rel='stylesheet' href='stylesheets/style.css')
+
+    body
+        #wrapper
+            #nav-bar
+                a.nav-link(href='/')
+                    span
+                        img(src='images/Camera-icons-(106).png' width='45' height='45')
+                b Gumservi
+        #id01.modal
+            form.modal-content.animate(action='/login' method='POST')
+                .imgcontainer
+                    img.avatar(src='images/login.jpg' alt='Avatar')
+                .container
+                    if status == 'error'
+                        .error
+                            | #{message}
+                    else if status == 'success'
+                        .success
+                            | #{message}
+                .container
+                    label
+                        b(style='color: #ffff; font-size: 20px') Username
+                    input(type='text' placeholder='Username' name='username' required='')
+                    label
+                        b(style='color: #ffff; font-size: 20px') Password
+                    input(type='password' placeholder='Password' name='password' required='')
+                    button(type='submit' style='background-color: #9aff9a; color: #000') Log In
+                    span.signup(style='color: #ffff')
+                        | Don&apos;t have account? 
+                        a(href='/register' style='color: #ffff; font-style: italic; font-weight: bold') Sign Up
+                .container

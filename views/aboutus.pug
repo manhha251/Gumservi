@@ -1,0 +1,98 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+    title About us
+    //link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
+    link(rel='stylesheet' href='/stylesheets/style.css')
+    link(rel='stylesheet' href='/stylesheets/message.css')
+    link(href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet')
+    link(rel='stylesheet' href='/stylesheets/aboutUs.css')
+    //link(href='https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/wtf-forms.css' rel='stylesheet')
+    //script(defer src='/javascripts/script.js')
+  body
+    #wrapper
+      #header
+        #nav-bar
+          a.nav-link(href='#')
+            span
+              img(src='/images/Camera-icons-(106).png' width='45' height='45')
+          b Gumservi
+          .nav
+            ul
+              li.nav-item
+                a.nav-link ABOUT US
+              if (username)
+                li.nav-item
+                  a.nav-link(href='/logout') LOG OUT
+                li.nav-item(style='display: inline-block')
+                  label(style='font-size:20px') Welcome, 
+                  a.nav-link(href='/profile' style='font-size:20px') #{username}
+              else
+                li.nav-item
+                  a.nav-link(href='/register') REGISTER
+                li.nav-item
+                  a.nav-link(href='/login') LOG IN
+                li.nav-item
+                  a.nav-link(href='/') HOME              
+              li.nav-search
+                #search-photo
+                  form#search-form(method='GET', action='/search' style='display: block')
+                    select#filter(data-trigger='' name='filter')
+                      option(placeholder='' value='title') Title (Name)
+                      option(value='keyword') Keyword
+                      option(value='caption') Caption (Description)
+                    select#type(data-trigger='' name='type')
+                      option(placeholder='' value='image') Image
+                      option(value='album') Album
+                    input#input-image(type='search' name='search' placeholder='Search photos... (･｀ｪ´･)つ')
+                    button.icon-search(type='submit')
+                      i.fa.fa-search
+        p#banner
+          img(src='/images/banner.jpg')
+        
+      .container
+        .inf(style='text-align: justify !important')
+          br
+          .center
+            img.logo(src='/images/photo.jpg')
+            h2 Photos
+          p
+            | We have hundreds of thousands free stock photos and every day new high resolution photos will be added. All photos are hand-picked from photos uploaded by our users or sourced from free image websites. We make sure all published pictures are high-quality and licensed under the Copyright &copy;2019 license.
+          br
+          .center
+            img.logo(src='https://cdn.dribbble.com/users/1568733/screenshots/4055430/bgs-logo.png')
+            h2 Photo Sources
+          p
+            | Only free images from our community of photographers and sources like Pixabay, Gratisography, Little Visuals and many more are added to our photo database. We constantly try to deliver as many high quality free stock photos as possible to the creatives who use our website.
+          br
+          .center
+            img.logo(src='http://logodesignfx.com/wp-content/uploads/2019/04/conqueror-logo-.jpg')
+            h2 About our team
+          p
+            | Gumservi is run by L&#x1B0;u Ph&#x1EA1;m M&#x1EA1;nh H&agrave;, H&#x1ED3; Nh&#x1EAD;t Huy, Tr&#x1EA7;n Huy Nam, L&ecirc; T&ocirc;n Huy and Phan Thanh Khi&#x1EBF;t, co-founded together in 2019
+
+      #footer(style='text-align: center')
+        #lilfooter1
+          h3 LICENSE
+          p
+            | Nous somme heureux de faire ce site. Le site Web est cr&eacute;&eacute; avec une passion pour la photographie et
+            | nous voulons le partager avec des personnes partageant les m&ecirc;mes int&eacute;r&ecirc;ts.
+          p Copyright &copy;2019 This web is made by 2019.Web-17VP | All rights reserved.
+        #lilfooter2
+          h3 FEEDBACK
+          p Leave your comment for us
+          .box
+            form.container-4(method='POST' action='/feedback')
+              input#text(type='text' placeholder='◉ω◉ Feed back overhere...')
+              button.icon(onclick="alert('Submit successfully!')")
+                i.fa.fa-arrow-right
+        #lilfooter3
+          h3 FOLLOW US
+          p Let us be social
+          img(src='/images/facebook-logo.png')
+          img(src='/images/twitter(1).png')
+          img(src='/images/instagram-logo.png')
+          img(src='/images/youtube(1).png')
