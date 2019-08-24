@@ -376,12 +376,8 @@ router.get('/delete/album/image/:id-:imageId', async function (req, res, next) {
       }
     })
   } else {
-    var error = new Error('Your login section has expired. Please login again')
-    error.status = 401
-    next(error)
+    res.render('login', { title: 'Log In', stylesheet: 'LogIn.css', status: 'error', message: 'Your login section has expired' })
   }
 })
-
-// ALBUM section
 
 module.exports = router
