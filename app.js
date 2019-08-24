@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 var createError = require('http-errors')
 var express = require('express')
 var path = require('path')
@@ -23,7 +25,7 @@ var app = express()
 
 var uri = process.env.MONGOLAB_URI
 
-mongoose.connect(uri)
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost:27017/Gumservi')
 var db = mongoose.connection
 
 db.on('error', console.error.bind(console, 'connection error:'))
