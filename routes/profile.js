@@ -179,7 +179,7 @@ router.get('/album/:id', async function (req, res, next) {
           array = null
           thumbnail = null
         }
-
+        console.log(array.size)
         await res.render('edit', {
           type: 'album',
           username: req.session.username,
