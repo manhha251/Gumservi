@@ -163,11 +163,11 @@ router.get('/album/:id', async function (req, res, next) {
           })
 
           await asyncForEach(album.image_list, async (element) => {
-            await Photo.findById(element, function (error, photo) {
+            await Photo.findById(element, async function (error, photo) {
               if (error) {
                 next(error)
               } else {
-                array.push({
+                await array.push({
                   id: photo._id,
                   data: new Buffer(photo.img.data).toString('base64'),
                   contentType: photo.img.contentType
@@ -251,7 +251,7 @@ router.post('/update/album/:id', async function (req, res, next) {
         // album.image_list.forEach(element => array.push(element))
         // console.log(req.files)
         if (req.files.images.length > 1) {
-          asyncForEach(req.files.images, async (element) => {
+          await asyncForEach(req.files.images, async (element) => {
             var photo = new Photo()
             photo._id = mongoose.Types.ObjectId()
             photo.title = element.filename
