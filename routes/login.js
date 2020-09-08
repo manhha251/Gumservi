@@ -16,7 +16,6 @@ router.get('/', async function (req, res, next) {
 router.post('/', async function (req, res, next) {
   const username = req.body.username
   const password = req.body.password
-  console.log(username + ':' + password)
   if (username && password) {
     await User.findOne({ username: username })
       .exec(async function (error, user) {
